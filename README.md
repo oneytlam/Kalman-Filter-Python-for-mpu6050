@@ -1,2 +1,5 @@
 # KalmanFilterPython
-This is a python library of Kalman filter and implementation of the same for the mpu6050 module
+This is a Kalman Filter library that supposedly makes use of 9 degrees of freedom to predict a position.
+Trying to figure how this works.
+
+Yik Ting, Yiwang and Ian (Dunman High School), Professor Bui Viet Phuong (A*Star IHPC)
