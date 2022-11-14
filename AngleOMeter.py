@@ -28,7 +28,7 @@ magX = 0
 magY = 0
 magZ = 0
 
-RestrictPitch = True	#Comment out to restrict roll to ±90deg instead - please read: http://www.freescale.com/files/sensors/doc/app_note/AN3461.pdf
+RestrictPitch = False	#Comment out to restrict roll to ±90deg instead - please read: http://www.freescale.com/files/sensors/doc/app_note/AN3461.pdf
 radToDeg = 57.2957786
 kalAngleX = 0
 kalAngleY = 0
@@ -36,7 +36,7 @@ header = []
 
 
 # open the file in read mode
-file = open('./csvs/x1.csv', 'r')
+file = open('./csvs/y1.csv', 'r')
 
 # creating dictreader object
 file = csv.DictReader(file)
@@ -45,33 +45,31 @@ print(file)
 # iterating over each row and append
 # values to empty list
 for col in file:
-	accelDataX.append(float(col['accelX']))
-	accelDataY.append(float(col['accelY']))
-	accelDataZ.append(float(col['accelZ']))
-	gyroDataX.append(float(col['gyroX']))
-	gyroDataY.append(float(col['gyroY']))
-	gyroDataZ.append(float(col['gyroZ']))
-	magDataX.append(float(col['magnoX']))
-	magDataY.append(float(col['magnoY']))
-	magDataZ.append(float(col['magnoZ']))
-
-
+	if (col['accelX'] != None and col['accelY']!=None and col['accelZ']!=None and col['gyroX']!=None and col['gyroY']!=None and col['gyroZ']!=None and col['magnoX']!=None and col['magnoY']!=None and col['magnoZ']!=None):
+		accelDataX.append(float(col['accelX']))
+		accelDataY.append(float(col['accelY']))
+		accelDataZ.append(float(col['accelZ']))
+		gyroDataX.append(float(col['gyroX']))
+		gyroDataY.append(float(col['gyroY']))
+		gyroDataZ.append(float(col['gyroZ']))
+		magDataX.append(float(col['magnoX']))
+		magDataY.append(float(col['magnoY']))
+		magDataZ.append(float(col['magnoZ']))
 
 accX = accelDataX[0]
 accY = accelDataY[0]
 accZ = accelDataZ[0]
-print("this code is running", accX, accY, accZ)
 
-
-
+# loading data is complete!
 
 if (RestrictPitch):
 	roll = math.atan2(accY,accZ) * radToDeg
 	pitch = math.atan(-accX/math.sqrt((accY**2)+(accZ**2))) * radToDeg
+
 else:
 	roll = math.atan(accY/math.sqrt((accX**2)+(accZ**2))) * radToDeg
 	pitch = math.atan2(-accX,accZ) * radToDeg
-print(roll)
+	
 kalmanX.setAngle(roll)
 kalmanY.setAngle(pitch)
 gyroXAngle = roll;
@@ -152,5 +150,5 @@ while True:
 		gyroYAngle = kalAngleY
 
 	print("Angle X: " + str(kalAngleX)+"   " +"Angle Y: " + str(kalAngleY))
-	#print(str(roll)+"  "+str(gyroXAngle)+"  "+str(compAngleX)+"  "+str(kalAngleX)+"  "+str(pitch)+"  "+str(gyroYAngle)+"  "+str(compAngleY)+"  "+str(kalAngleY))
+	print(str(roll)+"  "+str(gyroXAngle)+"  "+str(compAngleX)+"  "+str(kalAngleX)+"  "+str(pitch)+"  "+str(gyroYAngle)+"  "+str(compAngleY)+"  "+str(kalAngleY))
 	time.sleep(0.005)
