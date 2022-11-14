@@ -5,16 +5,16 @@ import cv2
 # Kalman Filter
 kf = KalmanFilter()
 
-img = cv2.imread("blue_background.webp")
+img = cv2.imread("./blue_background.webp")
 
-ball1_positions = [(0,0), (0,0), (1,0), (3,0)]
+ball1_positions = [(0,0), (0,0), (1,0)]
 
 ball2_positions = [(4, 300), (61, 256), (116, 214), (170, 180), (225, 148), (279, 120), (332, 97),
          (383, 80), (434, 66), (484, 55), (535, 49), (586, 49), (634, 50),
          (683, 58), (731, 69), (778, 82), (824, 101), (870, 124), (917, 148),
          (962, 169), (1006, 212), (1051, 249), (1093, 290)]
 
-for pt in ball:
+for pt in ball1_positions:
     cv2.circle(img, pt, 15, (0, 20, 220), -1)
     predicted = kf.predict(pt[0], pt[1])
 
@@ -25,7 +25,6 @@ for i in range(10):
     cv2.circle(img, predicted, 15, (20, 220, 0), 4)
 
     print(predicted)
-
 
 cv2.imshow("Img", img)
 cv2.waitKey(0)

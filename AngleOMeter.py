@@ -36,7 +36,7 @@ header = []
 
 
 # open the file in read mode
-file = open('./csvs/y1.csv', 'r')
+file = open('./csvs/14anov.csv', 'r')
 
 # creating dictreader object
 file = csv.DictReader(file)
@@ -132,9 +132,9 @@ while True:
 		else:
 			kalAngleY = kalmanY.getAngle(pitch,gyroYRate,dt)
 
-		if(abs(kalAngleY)>90):
-			gyroXRate  = -gyroXRate
-			kalAngleX = kalmanX.getAngle(roll,gyroXRate,dt)
+		#if(abs(kalAngleY)>90):
+		gyroXRate  = -gyroXRate
+		kalAngleX = kalmanX.getAngle(roll,gyroXRate,dt)
 
 	#angle = (rate of change of angle) * change in time
 	gyroXAngle = gyroXRate * dt
@@ -150,5 +150,5 @@ while True:
 		gyroYAngle = kalAngleY
 
 	print("Angle X: " + str(kalAngleX)+"   " +"Angle Y: " + str(kalAngleY))
-	print(str(roll)+"  "+str(gyroXAngle)+"  "+str(compAngleX)+"  "+str(kalAngleX)+"  "+str(pitch)+"  "+str(gyroYAngle)+"  "+str(compAngleY)+"  "+str(kalAngleY))
+	#print(str(roll)+"  "+str(gyroXAngle)+"  "+str(compAngleX)+"  "+str(kalAngleX)+"  "+str(pitch)+"  "+str(gyroYAngle)+"  "+str(compAngleY)+"  "+str(kalAngleY))
 	time.sleep(0.005)
