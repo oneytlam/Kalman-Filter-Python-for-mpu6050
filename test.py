@@ -18,3 +18,5 @@ for col in file:
     accelX.append(col['accelX'])
     accelY.append(col['accelY'])
     accelZ.append(col['accelZ'])
+    
+print(float(bool(None)))
