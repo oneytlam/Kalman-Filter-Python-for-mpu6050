@@ -25,10 +25,10 @@ velocityZ = 0
 x_coordinate = 0
 y_coordinate = 0
 z_coordinate = 0
-THRESHOLD = 0
+THRESHOLD = 0.5
 
 # open the file in read mode
-file = open('./csvs/datanotworking.csv', 'r')
+file = open('./csvs/24nov_L.csv', 'r')
 # creating dictreader object
 file = csv.DictReader(file)
 
@@ -81,14 +81,14 @@ for i in range(len(accelDataX)):
 import cv2  # Not actually necessary if you just want to create an image.
 import numpy as np
 
-HEIGHT, WIDTH = 600, 600
-RADIUS = 10
+HEIGHT, WIDTH = 200, 200
+RADIUS = 2
 COLOR = (0, 0, 255)
 THICKNESS = -1 
 blank_image = np.zeros((HEIGHT,WIDTH,3), np.uint8)
 for coord in coords:
-    coord[0] = int(coord[0] * 10) + 300
-    coord[1] = int(coord[1] * 10) + 300
+    coord[0] = int(coord[0] * 10) + 100
+    coord[1] = int(coord[1] * 10) + 100
     blank_image = cv2.circle(blank_image, coord, RADIUS, COLOR, THICKNESS)
     cv2.imwrite(r'./path.png', blank_image)
 
