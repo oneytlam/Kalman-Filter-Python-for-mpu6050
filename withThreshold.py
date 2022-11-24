@@ -25,10 +25,10 @@ velocityZ = 0
 x_coordinate = 0
 y_coordinate = 0
 z_coordinate = 0
-THRESHOLD = 1
+THRESHOLD = 0
 
 # open the file in read mode
-file = open('./csvs/manysensors.csv', 'r')
+file = open('./csvs/datanotworking.csv', 'r')
 # creating dictreader object
 file = csv.DictReader(file)
 
@@ -60,6 +60,7 @@ for col in file:
 prevTime = math.floor(float(timeStamp[0]))
 curTime = 0
 
+coords = []
 for i in range(len(accelDataX)):
     angleX += gyroDataX[i]
     angleX %= (2*math.pi)
@@ -75,3 +76,19 @@ for i in range(len(accelDataX)):
     velocityY += accY * (curTime - prevTime)
     prevTime = curTime
     print(f"time: {curTime} x coordinate: {x_coordinate}, y coordinate: {y_coordinate}")
+    coords.append([x_coordinate, y_coordinate])
+    
+import cv2  # Not actually necessary if you just want to create an image.
+import numpy as np
+
+HEIGHT, WIDTH = 600, 600
+RADIUS = 10
+COLOR = (0, 0, 255)
+THICKNESS = -1 
+blank_image = np.zeros((HEIGHT,WIDTH,3), np.uint8)
+for coord in coords:
+    coord[0] = int(coord[0] * 10) + 300
+    coord[1] = int(coord[1] * 10) + 300
+    blank_image = cv2.circle(blank_image, coord, RADIUS, COLOR, THICKNESS)
+    cv2.imwrite(r'./path.png', blank_image)
+
